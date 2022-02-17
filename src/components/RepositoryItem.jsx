@@ -1,5 +1,27 @@
-import { Text } from "react-native";
-import { View } from "react-native";
+import Text from "./Text";
+import { View, StyleSheet, Image } from "react-native";
+import theme from "../theme";
+import Badge from "./Badge";
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: theme.colors.bgWhite,
+        padding: 12,
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 4,
+    },
+    row: theme.layout.row,
+    column: theme.layout.column,
+    column_4: theme.layout.column_4,
+    spaced: {
+        flex: 2,
+        alignItems: 'center',
+        paddingTop: 10
+    },
+  });
 
 const RepositoryItem = (props) => {
     const { description,
@@ -10,15 +32,42 @@ const RepositoryItem = (props) => {
             reviewCount,
             stargazersCount } = props;
 
+    const formatThousands = (num) => {
+        return num < 1000 ? num : Math.round(num / 100) / 10 + "k";
+    };
+
     return (
-        <View>
-            <Text>Full Name: {fullName}</Text>
-            <Text>Description: {description}</Text>
-            <Text>Forks: {forksCount}</Text>
-            <Text>Language: {language}</Text>
-            <Text>Rating: {ratingAverage}</Text>
-            <Text>Reviews: {reviewCount}</Text>
-            <Text>Stars: {stargazersCount}</Text>
+        <View style={styles.container}>
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <Image style={styles.image} source={{
+                        uri: props.ownerAvatarUrl,
+                        }} />
+                </View>
+                <View style={styles.column_4}>
+                        <Text fontWeight="bold">{fullName}</Text>
+                        <Text>{description}</Text>
+                        <Badge text={language} />
+                </View>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.column, styles.spaced}>
+                    <Text fontWeight="bold">{formatThousands(forksCount)}</Text>
+                    <Text>Forks</Text>
+                </View>
+                <View style={styles.column, styles.spaced}>
+                    <Text fontWeight="bold">{formatThousands(ratingAverage)}</Text>
+                    <Text>Rating</Text>
+                </View>
+                <View style={styles.column, styles.spaced}>
+                    <Text fontWeight="bold">{formatThousands(reviewCount)}</Text>
+                    <Text>Reviews</Text>
+                </View>
+                <View style={styles.column, styles.spaced}>
+                    <Text fontWeight="bold">{formatThousands(stargazersCount)}</Text>
+                    <Text>Stars</Text>
+                </View>
+            </View>
         </View>
     );
 };
