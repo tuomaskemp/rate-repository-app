@@ -7,7 +7,8 @@ const theme = {
       bgPrimary: '#24292e',
       bgWhite: '#ffffff',
       bgSecondary: '#e1e4e8',
-      formBorder: 'lightgray'
+      formBorder: 'lightgray',
+      error: '#d73a4a',
     },
     fontSizes: {
       body: 14,
