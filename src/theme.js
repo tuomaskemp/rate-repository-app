@@ -7,6 +7,7 @@ const theme = {
       bgPrimary: '#24292e',
       bgWhite: '#ffffff',
       bgSecondary: '#e1e4e8',
+      formBorder: 'lightgray'
     },
     fontSizes: {
       body: 14,
@@ -29,6 +30,10 @@ const theme = {
       column_4: {
         flex: 4,
       }
+    },
+    borders: {
+      radius: 6,
+      width: 1
     }
   };
   
