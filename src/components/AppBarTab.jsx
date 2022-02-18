@@ -1,7 +1,6 @@
 import { Pressable, StyleSheet } from "react-native";
 import Text from "./Text";
 import Constants from 'expo-constants';
-import { useNavigate } from "react-router-dom";
 
 const styles = StyleSheet.create({
     text: {
@@ -9,11 +8,7 @@ const styles = StyleSheet.create({
     }
   });
 
-const AppBarTab = ({ name, route }) => {
-    let navigate = useNavigate();
-    const onTextPress = () => {
-        navigate(`/${route}`);
-    };
+const AppBarTab = ({ name, onTextPress }) => {
     return (
         <Pressable onPress={onTextPress}>
             <Text 
