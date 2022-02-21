@@ -28,7 +28,7 @@ const AppBar = () => {
     }, [user]);
 
     const toggleLoginText = (user) => {
-      return !user.data.me ? "Sign in" : "Sign out";
+      return !user.data?.me ? "Sign in" : "Sign out";
     };
 
     const handleSignInSignOutPress = async (user) => {

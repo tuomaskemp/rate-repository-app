@@ -37,7 +37,7 @@ const RepositoryItem = (props) => {
     };
 
     return (
-        <View style={styles.container}>
+        <View testID="repositoryItem" style={styles.container}>
             <View style={styles.row}>
                 <View style={styles.column}>
                     <Image style={styles.image} source={{
@@ -47,7 +47,7 @@ const RepositoryItem = (props) => {
                 <View style={styles.column_4}>
                         <Text fontWeight="bold">{fullName}</Text>
                         <Text>{description}</Text>
-                        <Badge text={language} />
+                        <Badge text={language}>{language}</Badge>
                 </View>
             </View>
             <View style={styles.row}>
