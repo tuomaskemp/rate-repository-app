@@ -2,6 +2,8 @@ import Text from "./Text";
 import { View, StyleSheet, Image } from "react-native";
 import theme from "../theme";
 import Badge from "./Badge";
+import Pressable from "./Pressable";
+import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
     container: {
@@ -21,6 +23,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10
     },
+    space_top: {
+        paddingTop: 10,
+    }
   });
 
 const RepositoryItem = (props) => {
@@ -30,44 +35,60 @@ const RepositoryItem = (props) => {
             language,
             ratingAverage,
             reviewCount,
-            stargazersCount } = props;
+            stargazersCount,
+            url,
+            showUrlBtn } = props;
 
     const formatThousands = (num) => {
         return num < 1000 ? num : Math.round(num / 100) / 10 + "k";
     };
 
     return (
-        <View testID="repositoryItem" style={styles.container}>
-            <View style={styles.row}>
-                <View style={styles.column}>
-                    <Image style={styles.image} source={{
-                        uri: props.ownerAvatarUrl,
-                        }} />
+        <View>
+            <View testID="repositoryItem" style={styles.container}>
+                <View style={styles.row}>
+                    <View style={styles.column}>
+                        <Image style={styles.image} source={{
+                            uri: props.ownerAvatarUrl,
+                            }} />
+                    </View>
+                    <View style={styles.column_4}>
+                            <Text fontWeight="bold">{fullName}</Text>
+                            <Text>{description}</Text>
+                            <Badge text={language}>{language}</Badge>
+                    </View>
                 </View>
-                <View style={styles.column_4}>
-                        <Text fontWeight="bold">{fullName}</Text>
-                        <Text>{description}</Text>
-                        <Badge text={language}>{language}</Badge>
+                <View style={styles.row}>
+                    <View style={styles.column, styles.spaced}>
+                        <Text fontWeight="bold">{formatThousands(forksCount)}</Text>
+                        <Text>Forks</Text>
+                    </View>
+                    <View style={styles.column, styles.spaced}>
+                        <Text fontWeight="bold">{formatThousands(ratingAverage)}</Text>
+                        <Text>Rating</Text>
+                    </View>
+                    <View style={styles.column, styles.spaced}>
+                        <Text fontWeight="bold">{formatThousands(reviewCount)}</Text>
+                        <Text>Reviews</Text>
+                    </View>
+                    <View style={styles.column, styles.spaced}>
+                        <Text fontWeight="bold">{formatThousands(stargazersCount)}</Text>
+                        <Text>Stars</Text>
+                    </View>
                 </View>
+                
             </View>
-            <View style={styles.row}>
-                <View style={styles.column, styles.spaced}>
-                    <Text fontWeight="bold">{formatThousands(forksCount)}</Text>
-                    <Text>Forks</Text>
-                </View>
-                <View style={styles.column, styles.spaced}>
-                    <Text fontWeight="bold">{formatThousands(ratingAverage)}</Text>
-                    <Text>Rating</Text>
-                </View>
-                <View style={styles.column, styles.spaced}>
-                    <Text fontWeight="bold">{formatThousands(reviewCount)}</Text>
-                    <Text>Reviews</Text>
-                </View>
-                <View style={styles.column, styles.spaced}>
-                    <Text fontWeight="bold">{formatThousands(stargazersCount)}</Text>
-                    <Text>Stars</Text>
-                </View>
-            </View>
+            {
+                showUrlBtn ? (
+                    <View style={styles.container}>
+                        <View style={styles.row}>
+                            <View style={styles.column}>
+                                <Pressable text="Open in Github" onSubmit={() => Linking.openURL(url)} />
+                            </View>
+                        </View>
+                    </View>
+                ) : null
+            }
         </View>
     );
 };
