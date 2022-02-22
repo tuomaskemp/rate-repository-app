@@ -6,7 +6,6 @@ import { useApolloClient, useQuery } from '@apollo/client';
 import { ME } from '../graphql/queries';
 import { useNavigate } from 'react-router-native';
 import useAuthStorage from '../hooks/useAuthStorage';
-import { useEffect } from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,12 +22,8 @@ const AppBar = () => {
     const authStorage = useAuthStorage();
     const user = useQuery(ME);
 
-    useEffect(() => {
-      toggleLoginText(user);
-    }, [user]);
-
-    const toggleLoginText = (user) => {
-      return !user.data?.me ? "Sign in" : "Sign out";
+    const toggleTextVisibility = (user, text1, text2) => {
+      return !user.data?.me ? text1 : text2;
     };
 
     const handleSignInSignOutPress = async (user) => {
@@ -49,9 +44,14 @@ const AppBar = () => {
                   onTextPress={() => navigate('/')} 
                 />
                 <AppBarTab 
-                  name={toggleLoginText(user)} 
+                  name={toggleTextVisibility(user, "Sign In", "Sign out")} 
                   style={styles.column} 
                   onTextPress={() => handleSignInSignOutPress(user)} 
+                />
+                <AppBarTab
+                  name={toggleTextVisibility(user, "", "Create a review")}
+                  style={styles.column}
+                  onTextPress={() => navigate('/review')}
                 />
             </ScrollView>
             </View>
