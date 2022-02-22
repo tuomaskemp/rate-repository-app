@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
   },
   column: theme.layout.column,
   row: theme.layout.row,
+  hidden: {
+    display: 'none',
+  }
 });
 
 const AppBar = () => {
@@ -49,9 +52,16 @@ const AppBar = () => {
                   onTextPress={() => handleSignInSignOutPress(user)} 
                 />
                 <AppBarTab
-                  name={toggleTextVisibility(user, "", "Create a review")}
+                  name="Sign up"
+                  style={styles.column}
+                  onTextPress={() => navigate('/signup')}
+                  hideCondition={user.data?.me}
+                />
+                <AppBarTab
+                  name="Create a review"
                   style={styles.column}
                   onTextPress={() => navigate('/review')}
+                  hideCondition={!user.data?.me}
                 />
             </ScrollView>
             </View>

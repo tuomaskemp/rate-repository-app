@@ -8,7 +8,10 @@ const styles = StyleSheet.create({
     }
   });
 
-const AppBarTab = ({ name, onTextPress }) => {
+const AppBarTab = ({ name, onTextPress, hideCondition }) => {
+    if (hideCondition) {
+        return null;
+    }
     return (
         <Pressable onPress={onTextPress}>
             <Text 
