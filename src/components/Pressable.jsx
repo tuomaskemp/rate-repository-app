@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
   colorError: {
     backgroundColor: theme.colors.error,
   },
+  colorSecondary: {
+    backgroundColor: theme.colors.bgSecondary
+  },
   text: {
       textAlign: 'center',
   }
@@ -23,6 +26,7 @@ const Pressable = ({ color, style, onSubmit, text, ...props }) => {
   const pressableStyle = [
     styles.btn,
     color === 'error' && styles.colorError,
+    color === 'bgSecondary' && styles.colorSecondary,
     style,
   ];
 

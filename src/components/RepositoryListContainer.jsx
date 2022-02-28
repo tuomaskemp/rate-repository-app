@@ -1,19 +1,21 @@
 import { FlatList, Pressable, View } from "react-native";
 import ItemSeparator from "./ItemSeparator";
 import RepositoryItem from "./RepositoryItem";
+import RepositoryListHeader from "./RepositoryListHeader";
 
 
 
-const RepositoryListContainer = ({ repositories, navigate }) => {
-    const repositoryNodes = repositories
-    ? repositories.edges.map(edge => edge.node)
-    : [];
+const RepositoryListContainer = ({ repositories, navigate, refetchRepositories }) => {
 
     return (
         <View>
             <FlatList
-            data={repositoryNodes}
+            data={repositories}
             ItemSeparatorComponent={ItemSeparator}
+            ListHeaderComponent={
+                <RepositoryListHeader 
+                    refetchRepositories={refetchRepositories}
+                />}
             renderItem={({ item }) => (
                 <Pressable onPress={() => navigate(`/${item.id}`)}>
                     <RepositoryItem {...item} />
@@ -24,4 +26,4 @@ const RepositoryListContainer = ({ repositories, navigate }) => {
     );
   };
 
-export default RepositoryListContainer;  
+export default RepositoryListContainer;
