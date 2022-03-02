@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const ReviewItem = ({ review }) => {
+const ReviewItem = ({ review, headingField }) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -41,8 +41,16 @@ const ReviewItem = ({ review }) => {
                     </View>
                 </View>
                 <View style={styles.column_4}>
-                    <Text fontSize="subheading" fontWeight="bold">{review.user.username}</Text>
-                    <Text style={styles.date} color="textSecondary" fontSize="subheading">{format(new Date(review.createdAt), 'dd.MM.yyyy')}</Text>
+                    <Text fontSize="subheading" fontWeight="bold">
+                        {
+                            headingField === 'repositoryName' ? 
+                            `${review.repository?.ownerName}/${review.repository?.name}` : 
+                            review.user.username
+                        }
+                    </Text>
+                    <Text style={styles.date} color="textSecondary" fontSize="subheading">
+                        {format(new Date(review.createdAt), 'dd.MM.yyyy')}
+                    </Text>
                     <Text>{review.text}</Text>
                 </View>
             </View>

@@ -63,6 +63,12 @@ const AppBar = () => {
                   onTextPress={() => navigate('/review')}
                   hideCondition={!user.data?.me}
                 />
+                <AppBarTab
+                  name="My reviews"
+                  style={styles.column}
+                  onTextPress={() => navigate('/myreviews')}
+                  hideCondition={!user.data?.me}
+                />
             </ScrollView>
             </View>
         </View>

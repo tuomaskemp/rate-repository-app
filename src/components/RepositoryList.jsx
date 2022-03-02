@@ -1,24 +1,20 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-native';
 import useRepositories from '../hooks/useRepositories';
 import RepositoryListContainer from './RepositoryListContainer';
 
 const RepositoryList = () => {
-  const { repositories, refetch } = useRepositories();
+  const { repositories, refetch, fetchMore } = useRepositories({ first: 8 });
   const navigate = useNavigate();
-  const [repositoryNodes, setRepositoryNodes] = useState([]);
 
-  useEffect(() => {
-    const repositoryNodesList = repositories
-        ? repositories.edges.map(edge => edge.node)
-        : [];
-    setRepositoryNodes(repositoryNodesList);
-  }, [repositories]);
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   return <RepositoryListContainer 
-            repositories={repositoryNodes} 
+            repositories={repositories} 
             navigate={navigate} 
             refetchRepositories={refetch}
+            onEndReach={onEndReach}
           />;
 };
 
