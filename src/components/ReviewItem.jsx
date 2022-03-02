@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import theme from "../theme";
 import Text from "./Text";
 import { format } from 'date-fns';
+import Pressable from "./Pressable";
 
 const styles = StyleSheet.create({
     container: {
@@ -26,10 +27,13 @@ const styles = StyleSheet.create({
     },
     center: {
         alignItems: 'center',
+    },
+    marginTop: {
+        marginTop: 10
     }
 });
 
-const ReviewItem = ({ review, headingField }) => {
+const ReviewItem = ({ review, headingField, showActionButtons, navigate, onDeleteReview }) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -54,6 +58,17 @@ const ReviewItem = ({ review, headingField }) => {
                     <Text>{review.text}</Text>
                 </View>
             </View>
+            { showActionButtons ?
+                <View style={[styles.row, styles.marginTop]}>
+                    <View style={styles.column}>
+                        <Pressable text="View repository" onSubmit={() => navigate(`/${review.repository.id}`, {replace: true})} />
+                    </View>
+                    <View style={styles.column}>
+                        <Pressable color="error" text="Delete review" onSubmit={() => onDeleteReview(review.id)} />
+                    </View>
+                </View>
+                : null
+            }
         </View>
     );
 };
